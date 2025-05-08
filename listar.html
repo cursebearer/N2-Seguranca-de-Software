@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listar Usuários - Sistema de Cadastro</title>
+    <style>
+        :root {
+            --primary-color: #4f46e5;
+            --primary-hover: #4338ca;
+            --secondary-color: #f3f4f6;
+            --text-color: #1f2937;
+            --border-color: #d1d5db;
+            --error-color: #ef4444;
+            --success-color: #10b981;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f9fafb;
+            color: var(--text-color);
+            line-height: 1.5;
+            padding-bottom: 2rem;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1.5rem 0;
+            margin-bottom: 2rem;
+        }
+
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h1 {
+            font-size: 1.75rem;
+            font-weight: 600;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            opacity: 0.9;
+            transition: opacity 0.2s;
+        }
+
+        nav a:hover {
+            opacity: 1;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--primary-color);
+        }
+
+        .card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        /* Table Styles */
+        .table-container {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 0.75rem 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        th {
+            background-color: var(--secondary-color);
+            font-weight: 600;
+        }
+
+        tr:hover {
+            background-color: #f9fafb;
+        }
+
+        .actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            text-decoration: none;
+            text-align: center;
+            transition: background-color 0.15s;
+        }
+
+        .btn:hover {
+            background-color: var(--primary-hover);
+        }
+
+        .btn-small {
+            padding: 0.5rem 1rem;
+            font-size: 0.875rem;
+        }
+
+        .btn-secondary {
+            background-color: #6b7280;
+        }
+
+        .btn-secondary:hover {
+            background-color: #4b5563;
+        }
+
+        .btn-danger {
+            background-color: var(--error-color);
+        }
+
+        .btn-danger:hover {
+            background-color: #dc2626;
+        }
+
+        /* Alert Messages */
+        .alert {
+            padding: 1rem;
+            border-radius: 6px;
+            margin-bottom: 1.5rem;
+        }
+
+        .alert-info {
+            background-color: #eff6ff;
+            border: 1px solid #bfdbfe;
+            color: #1e40af;
+        }
+
+        .alert-warning {
+            background-color: #fffbeb;
+            border: 1px solid #fef3c7;
+            color: #92400e;
+        }
+
+        .alert-error {
+            background-color: #fef2f2;
+            border: 1px solid #fecaca;
+            color: #b91c1c;
+        }
+
+        .alert-success {
+            background-color: #ecfdf5;
+            border: 1px solid #a7f3d0;
+            color: #065f46;
+        }
+
+        /* Refresh Button */
+        .refresh-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        footer {
+            text-align: center;
+            padding: 1.5rem 0;
+            margin-top: 3rem;
+            border-top: 1px solid var(--border-color);
+            color: #6b7280;
+        }
+
+        /* Utility Classes */
+        .text-center {
+            text-align: center;
+        }
+
+        .mt-2 {
+            margin-top: 2rem;
+        }
+
+        /* Loading Spinner */
+        .spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border-left-color: var(--primary-color);
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Listar Usuários</h1>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Início</a></li>
+                    <li><a href="listar.html">Listar Usuários</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div id="message-container"></div>
+
+        <h2 class="section-title">Todos os Usuários</h2>
+        
+        <div class="refresh-container">
+            <p>Total de usuários: <span id="total-usuarios">0</span></p>
+            <button id="btn-atualizar" class="btn">Atualizar Lista</button>
+        </div>
+
+        <div class="card">
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nome</th>
+                            <th>Email</th>
+                            <th>Idade</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="usuarios-lista">
+                        <tr>
+                            <td colspan="5" class="text-center">
+                                <div class="spinner"></div>
+                                <p>Carregando usuários...</p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>Sistema de Cadastro de Usuários &copy; 2025</p>
+        </div>
+    </footer>
+
+    <script>
+        const API_URL = 'http://localhost:3001/usuarios';
+        const messageContainer = document.getElementById('message-container');
+        const usuariosLista = document.getElementById('usuarios-lista');
+        const totalUsuarios = document.getElementById('total-usuarios');
+        const btnAtualizar = document.getElementById('btn-atualizar');
+        
+        // Função para exibir mensagens
+        function showMessage(message, type = 'info') {
+            messageContainer.innerHTML = `
+                <div class="alert alert-${type}">
+                    <p>${message}</p>
+                </div>
+            `;
+            
+            // Limpar a mensagem após 5 segundos
+            setTimeout(() => {
+                messageContainer.innerHTML = '';
+            }, 5000);
+        }
+        
+        // Função para carregar todos os usuários
+        async function carregarUsuarios() {
+            try {
+                usuariosLista.innerHTML = `
+                    <tr>
+                        <td colspan="5" class="text-center">
+                            <div class="spinner"></div>
+                            <p>Carregando usuários...</p>
+                        </td>
+                    </tr>
+                `;
+                
+                const response = await fetch(`${API_URL}/todos`);
+                
+                if (!response.ok) {
+                    throw new Error('Erro ao carregar usuários');
+                }
+                
+                const usuarios = await response.json();
+                
+                // Atualizar o contador de usuários
+                totalUsuarios.textContent = usuarios.length;
+                
+                if (usuarios.length === 0) {
+                    usuariosLista.innerHTML = `
+                        <tr>
+                            <td colspan="5" class="text-center">Nenhum usuário cadastrado</td>
+                        </tr>
+                    `;
+                    return;
+                }
+                
+                usuariosLista.innerHTML = usuarios.map(usuario => `
+                    <tr>
+                        <td>${usuario.id}</td>
+                        <td>${usuario.name}</td>
+                        <td>${usuario.email}</td>
+                        <td>${usuario.age}</td>
+                        <td class="actions">
+                            <a href="detalhes.html?id=${usuario.id}" class="btn btn-small">Ver</a>
+                            <a href="editar.html?id=${usuario.id}" class="btn btn-small btn-secondary">Editar</a>
+                            <button class="btn btn-small btn-danger" onclick="confirmarExclusao(${usuario.id}, '${usuario.name}')">Excluir</button>
+                        </td>
+                    </tr>
+                `).join('');
+                
+            } catch (error) {
+                console.error('Erro:', error);
+                showMessage('Erro ao carregar usuários. Verifique se o servidor está rodando.', 'error');
+                
+                usuariosLista.innerHTML = `
+                    <tr>
+                        <td colspan="5" class="text-center">Erro ao carregar usuários</td>
+                    </tr>
+                `;
+            }
+        }
+        
+        // Função para confirmar exclusão
+        function confirmarExclusao(id, nome) {
+            if (confirm(`Tem certeza que deseja excluir o usuário "${nome}"?`)) {
+                excluirUsuario(id);
+            }
+        }
+        
+        // Função para excluir um usuário
+        async function excluirUsuario(id) {
+            try {
+                const response = await fetch(`${API_URL}/deletar/${id}`, {
+                    method: 'DELETE'
+                });
+                
+                if (!response.ok) {
+                    throw new Error('Erro ao excluir usuário');
+                }
+                
+                showMessage('Usuário excluído com sucesso!', 'success');
+                
+                // Recarregar a lista de usuários
+                carregarUsuarios();
+                
+            } catch (error) {
+                console.error('Erro:', error);
+                showMessage('Erro ao excluir usuário. Tente novamente.', 'error');
+            }
+        }
+        
+        // Event Listeners
+        btnAtualizar.addEventListener('click', carregarUsuarios);
+        
+        // Carregar usuários ao iniciar a página
+        document.addEventListener('DOMContentLoaded', carregarUsuarios);
+    </script>
+</body>
+</html>
