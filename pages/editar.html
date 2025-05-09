@@ -103,20 +103,6 @@
                 </div>
                 
                 <div class="form-group">
-                    <label for="age">Idade</label>
-                    <input 
-                        type="number" 
-                        id="age" 
-                        name="age" 
-                        placeholder="Digite a idade" 
-                        value="${usuario.age}"
-                        min="1" 
-                        max="120" 
-                        required
-                    >
-                </div>
-                
-                <div class="form-group">
                     <label for="email">E-mail</label>
                     <input 
                         type="email" 
@@ -127,6 +113,20 @@
                         required
                     >
                     <span class="hint">Este e-mail deve ser único no sistema</span>
+                </div>
+
+                   <div class="form-group">
+                    <label for="senha">Password</label>
+                    <input 
+                        type="number" 
+                        id="senha" 
+                        name="senha" 
+                        placeholder="Digite a idade" 
+                        value="${usuario.password}"
+                        min="1" 
+                        max="120" 
+                        required
+                    >
                 </div>
                 
                 <div class="buttons">
