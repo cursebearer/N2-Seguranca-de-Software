@@ -28,33 +28,34 @@ Execute o comando abaixo para instalar as dependências do projeto:
 ```bash
 npm install
 ```
+
 2. Iniciar o Servidor
 Após instalar as dependências, execute o comando abaixo para iniciar o servidor:
 
-bash
-Copiar
-Editar
+```bash
 npm start
+```
+
 3. Iniciar o Banco de Dados com Docker
 Para rodar o banco de dados PostgreSQL com Docker, execute o comando abaixo:
 
-bash
-Copiar
-Editar
+```bash
 docker-compose up -d database
+```
 Isso irá iniciar o banco de dados em um container Docker.
 
 4. Executar as Migrations do Sequelize
 Para configurar o banco de dados, você precisa rodar as migrations do Sequelize. Execute o comando abaixo:
 
-bash
-Copiar
-Editar
+```bash
 sequelize db:migrate
+```
+
 5. Acessando o Projeto
-Após completar as etapas acima, você pode acessar a aplicação no seu navegador, geralmente em http://localhost:3000 (ou a porta configurada no seu projeto).
+Após completar as etapas acima, você pode acessar a aplicação abrindo o arquivo index.html ou usando a extensao live server.
 
 Scripts
+
 npm install: Instala as dependências do projeto.
 
 npm start: Inicia o servidor da aplicação.
@@ -63,13 +64,3 @@ docker-compose up -d database: Inicia o banco de dados PostgreSQL com Docker.
 
 sequelize db:migrate: Executa as migrations do Sequelize.
 
-Contribuindo
-Faça um fork do repositório.
-
-Crie uma branch para suas mudanças (git checkout -b minha-feature).
-
-Faça commit das suas mudanças (git commit -am 'Adicionando nova feature').
-
-Faça push para a branch (git push origin minha-feature).
-
-Abra um pull request.
