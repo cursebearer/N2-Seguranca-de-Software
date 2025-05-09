@@ -1,23 +1,29 @@
+import jwt from 'jsonwebtoken';
 import User from "../models/User.js";
-import crypto from "node:crypto";
+import bcrypt from 'bcryptjs';
+import dotenv from 'dotenv';
 
 export const createUser = async (req, res) => {
 
     try {
-        const userToCreate = {
-            id:crypto.randomUUID(),
-            name: req.body.name,
-            password: req.body.password,
-            email: req.body.email,
-        }
-    
-        const user = await User.create(userToCreate);
-    
-        res.status(200).json({ user });
-    
-    } catch (err) {
-        res.status(400).json(err);
+    const { name, email, password } = req.body;
+
+    if (!name || !email || !password) {
+      return res.status(400).json({ message: 'Todos os campos são obrigatórios' });
     }
+
+    const existingUser = await User.findOne({ where: { email } });
+    if (existingUser) {
+      return res.status(400).json({ message: 'Email já cadastrado' });
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+    await User.create({ name, email, password: hashedPassword });
+
+    res.status(201).json({ message: 'Usuário registrado com sucesso' });
+  } catch (error) {
+    res.status(500).json({ message: 'Erro no servidor', error });
+  }
 };
 
 export const getAllUsers = async (req, res) => {
@@ -78,3 +84,25 @@ export const updateUser = async (req, res) => {
         res.status(400).json(err);
     }
 }
+
+export const loginUser = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    const user = await User.findOne({ where: { email } });
+    if (!user) {
+      return res.status(400).json({ message: 'Credenciais inválidas' });
+    }
+
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      return res.status(400).json({ message: 'Credenciais inválidas' });
+    }
+
+    const token = jwt.sign({ id: user.id, email: user.email }, process.env.JWT_SECRET, { expiresIn: '1h' }); 
+
+    res.status(200).json({ token });
+  } catch (error) {
+    res.status(500).json({ message: 'Erro no servidor', error });
+  }
+};
