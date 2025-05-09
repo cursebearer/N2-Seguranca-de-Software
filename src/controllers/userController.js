@@ -7,7 +7,7 @@ export const createUser = async (req, res) => {
         const userToCreate = {
             id:crypto.randomUUID(),
             name: req.body.name,
-            age: req.body.age,
+            password: req.body.password,
             email: req.body.email,
         }
     

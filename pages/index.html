@@ -21,53 +21,6 @@
 
     <main class="container">
         <div id="message-container"></div>
-
-        <div class="grid">
-            <!-- Formulário de Cadastro -->
-            <div>
-                <h2 class="section-title">Cadastrar Novo Usuário</h2>
-                <div class="card">
-                    <form id="cadastro-form">
-                        <div class="form-group">
-                            <label for="name">Nome Completo</label>
-                            <input 
-                                type="text" 
-                                id="name" 
-                                name="name" 
-                                placeholder="Digite o nome completo" 
-                                required
-                            >
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="age">Idade</label>
-                            <input 
-                                type="number" 
-                                id="age" 
-                                name="age" 
-                                placeholder="Digite a idade" 
-                                min="1" 
-                                max="120" 
-                                required
-                            >
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="email">E-mail</label>
-                            <input 
-                                type="email" 
-                                id="email" 
-                                name="email" 
-                                placeholder="Digite o e-mail" 
-                                required
-                            >
-                            <span class="hint">Este e-mail deve ser único no sistema</span>
-                        </div>
-                        
-                        <button type="submit" class="btn">Cadastrar Usuário</button>
-                    </form>
-                </div>
-
                 <h2 class="section-title mt-2">Buscar Usuário</h2>
                 <div class="card">
                     <form id="buscar-form">
@@ -114,13 +67,6 @@
             </div>
         </div>
     </main>
-
-    <footer>
-        <div class="container">
-            <p>Sistema de Cadastro de Usuários &copy; 2025</p>
-        </div>
-    </footer>
-
     <script>
         const API_URL = 'http://localhost:3001/usuarios';
         const messageContainer = document.getElementById('message-container');
@@ -233,7 +179,6 @@ function buscarUsuario(event) {
     }
 }
 
-document.getElementById('cadastro-form').addEventListener('submit', cadastrarUsuario);
 document.getElementById('buscar-form').addEventListener('submit', buscarUsuario);
 
 document.addEventListener('DOMContentLoaded', carregarUsuariosRecentes);

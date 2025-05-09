@@ -9,8 +9,8 @@ class User extends Model {
             allowNull: false
           },
     
-          age: {
-            type: Sequelize.INTEGER,
+          password: {
+            type: Sequelize.STRING,
             allowNull: false
           },
     
