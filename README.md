@@ -1,105 +1,74 @@
-Nome do Projeto
-Descrição breve sobre o que o seu projeto faz e suas funcionalidades.
+# Projeto
 
-Pré-requisitos
-Antes de começar, certifique-se de ter os seguintes softwares instalados em sua máquina:
+Este projeto é um exemplo de aplicação com Docker, Node.js e Sequelize, e está configurado para ser facilmente executado localmente.
 
-Node.js (versão LTS recomendada)
+## Tecnologias Utilizadas
 
-Docker
+- **Node.js**
+- **Sequelize**
+- **PostgreSQL**
+- **Docker**
 
-Docker Compose
+## Pré-requisitos
 
-Instalação e Configuração
-1. Clone o repositório
-Primeiro, faça o clone do repositório para o seu ambiente local:
+Antes de rodar o projeto, é necessário ter o seguinte instalado:
 
-bash
-Copiar
-Editar
-git clone https://link-para-seu-repositorio.git
-cd nome-do-projeto
-2. Instalar as dependências do Node.js
-Execute o comando abaixo para instalar todas as dependências do Node.js necessárias para rodar o projeto:
+- **Node.js**: [Instalar Node.js](https://nodejs.org/)
+- **Docker**: [Instalar Docker](https://www.docker.com/products/docker-desktop)
+- **Docker Compose**: [Instalar Docker Compose](https://docs.docker.com/compose/install/)
 
-bash
-Copiar
-Editar
+## Passos para Execução
+
+Siga os passos abaixo para rodar o projeto localmente.
+
+### 1. Instalar Dependências
+
+Execute o comando abaixo para instalar as dependências do projeto:
+
+```bash
 npm install
-3. Configurar o banco de dados com Docker
-Antes de rodar o aplicativo, inicie o banco de dados utilizando o Docker. O Docker Compose vai configurar automaticamente o banco de dados para você.
-
-bash
-Copiar
-Editar
-docker-compose up -d database
-Isso vai rodar o banco de dados em um container em segundo plano. A configuração do banco está no arquivo docker-compose.yml.
-
-4. Rodar as migrações do Sequelize
-Após iniciar o banco de dados, execute as migrações para configurar as tabelas do banco de dados:
-
-bash
-Copiar
-Editar
-sequelize db:migrate
-Isso vai garantir que o banco de dados tenha a estrutura necessária para o funcionamento do seu projeto.
-
-5. Iniciar o servidor
-Agora, você pode iniciar o servidor da aplicação com o seguinte comando:
+2. Iniciar o Servidor
+Após instalar as dependências, execute o comando abaixo para iniciar o servidor:
 
 bash
 Copiar
 Editar
 npm start
-Isso irá iniciar o servidor na porta configurada e você poderá acessar o aplicativo no seu navegador (geralmente em http://localhost:3000, ou conforme configurado no seu código).
-
-Comandos úteis
-Rodar o banco de dados com Docker Compose:
+3. Iniciar o Banco de Dados com Docker
+Para rodar o banco de dados PostgreSQL com Docker, execute o comando abaixo:
 
 bash
 Copiar
 Editar
 docker-compose up -d database
-(Reinicia o banco de dados)
+Isso irá iniciar o banco de dados em um container Docker.
 
-Executar migrações do Sequelize:
+4. Executar as Migrations do Sequelize
+Para configurar o banco de dados, você precisa rodar as migrations do Sequelize. Execute o comando abaixo:
 
 bash
 Copiar
 Editar
 sequelize db:migrate
-(Aplica as migrações no banco de dados)
+5. Acessando o Projeto
+Após completar as etapas acima, você pode acessar a aplicação no seu navegador, geralmente em http://localhost:3000 (ou a porta configurada no seu projeto).
 
-Iniciar o servidor:
+Scripts
+npm install: Instala as dependências do projeto.
 
-bash
-Copiar
-Editar
-npm start
-Parar o servidor:
-Para parar o servidor, basta pressionar Ctrl + C no terminal onde o servidor está rodando.
+npm start: Inicia o servidor da aplicação.
 
-Estrutura do Projeto
-Aqui está um resumo rápido da estrutura de diretórios do projeto:
+docker-compose up -d database: Inicia o banco de dados PostgreSQL com Docker.
 
-bash
-Copiar
-Editar
-/node_modules        # Dependências do Node.js
-/src                # Código fonte da aplicação
-  /models           # Modelos do Sequelize
-  /controllers      # Controladores da aplicação
-  /routes           # Rotas da aplicação
-/config             # Configurações do projeto
-  /database.json    # Configuração do banco de dados
-/sequelize-config   # Arquivos de configuração do Sequelize
-Tecnologias Usadas
-Node.js: Plataforma de backend.
+sequelize db:migrate: Executa as migrations do Sequelize.
 
-Sequelize: ORM para interação com o banco de dados.
+Contribuindo
+Faça um fork do repositório.
 
-Docker: Para containerização do banco de dados.
+Crie uma branch para suas mudanças (git checkout -b minha-feature).
 
-Express: Framework para criação do servidor HTTP.
+Faça commit das suas mudanças (git commit -am 'Adicionando nova feature').
 
-PostgreSQL: Banco de dados utilizado no projeto.
+Faça push para a branch (git push origin minha-feature).
+
+Abra um pull request.
