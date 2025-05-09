@@ -1,4 +1,4 @@
-# Projeto
+# N2 Segurança de Software 
 
 Este projeto é um exemplo de aplicação com Docker, Node.js e Sequelize, e está configurado para ser facilmente executado localmente.
 
