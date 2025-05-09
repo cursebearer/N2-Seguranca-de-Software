@@ -1,6 +1,6 @@
 # N2 Segurança de Software 
 
-Este projeto é um exemplo de aplicação com Docker, Node.js e Sequelize, e está configurado para ser facilmente executado localmente.
+Este projeto é um exemplo de segurança de software com o objetivo de analisar uma versao do projeto sem protecao e outra com protecao utilizando recursos como JWT Token e Bcrypt
 
 ## Tecnologias Utilizadas
 
