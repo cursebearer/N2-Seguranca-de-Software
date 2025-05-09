@@ -15,8 +15,7 @@ Antes de rodar o projeto, é necessário ter o seguinte instalado:
 
 - **Node.js**: [Instalar Node.js](https://nodejs.org/)
 - **Docker**: [Instalar Docker](https://www.docker.com/products/docker-desktop)
-- **Docker Compose**: [Instalar Docker Compose](https://docs.docker.com/compose/install/)
-
+  
 ## Passos para Execução
 
 Siga os passos abaixo para rodar o projeto localmente.
@@ -63,7 +62,9 @@ Após completar as etapas acima, você pode acessar a aplicação abrindo o arqu
 /css
 /node_modules       # Dependências do Node.js
 /pages
-  index.html <----- # Arquivo para acessar a aplicação
+  login.html <----- # Arquivos para acessar a aplicação
+  cadastro.html
+  dashboard.html
   editar.html
   listar.html
   detalhes.html
