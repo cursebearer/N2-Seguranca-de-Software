@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Cadastro de Usuários</title>
+    <link rel="stylesheet" href="/css/index.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Sistema de Cadastro de Usuários</h1>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Início</a></li>
+                    <li><a href="listar.html">Listar Usuários</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div id="message-container"></div>
+
+        <div class="grid">
+            <!-- Formulário de Cadastro -->
+            <div>
+                <h2 class="section-title">Cadastrar Novo Usuário</h2>
+                <div class="card">
+                    <form id="cadastro-form">
+                        <div class="form-group">
+                            <label for="name">Nome Completo</label>
+                            <input 
+                                type="text" 
+                                id="name" 
+                                name="name" 
+                                placeholder="Digite o nome completo" 
+                                required
+                            >
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="age">Idade</label>
+                            <input 
+                                type="number" 
+                                id="age" 
+                                name="age" 
+                                placeholder="Digite a idade" 
+                                min="1" 
+                                max="120" 
+                                required
+                            >
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">E-mail</label>
+                            <input 
+                                type="email" 
+                                id="email" 
+                                name="email" 
+                                placeholder="Digite o e-mail" 
+                                required
+                            >
+                            <span class="hint">Este e-mail deve ser único no sistema</span>
+                        </div>
+                        
+                        <button type="submit" class="btn">Cadastrar Usuário</button>
+                    </form>
+                </div>
+
+                <h2 class="section-title mt-2">Buscar Usuário</h2>
+                <div class="card">
+                    <form id="buscar-form">
+                        <div class="form-group">
+                            <label for="userId">ID do Usuário</label>
+                            <input 
+                                type="text" 
+                                id="userId" 
+                                name="id" 
+                                placeholder="Digite o ID do usuário" 
+                                required
+                            >
+                        </div>
+                        
+                        <button type="submit" class="btn">Buscar Usuário</button>
+                    </form>
+                </div>
+            </div>
+
+            <div>
+                <h2 class="section-title">Usuários Recentes</h2>
+                <div class="card">
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Nome</th>
+                                    <th>Email</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody id="usuarios-recentes">
+                                <tr>
+                                    <td colspan="4" class="text-center">Carregando usuários...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p class="text-center mt-2">
+                        <a href="listar.html" class="btn">Ver Todos os Usuários</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>Sistema de Cadastro de Usuários &copy; 2025</p>
+        </div>
+    </footer>
+
+    <script>
+        const API_URL = 'http://localhost:3001/usuarios';
+        const messageContainer = document.getElementById('message-container');
+        
+        function showMessage(message, type = 'info') {
+            messageContainer.innerHTML = `
+                <div class="alert alert-${type}">
+                    <p>${message}</p>
+                </div>
+            `;
+            
+            setTimeout(() => {
+                messageContainer.innerHTML = '';
+            }, 5000);
+        }
+        
+
+        let usuarios = [];  
+
+async function carregarUsuariosRecentes() {
+    try {
+        const response = await fetch(`${API_URL}/todos`);
+        
+        if (!response.ok) {
+            throw new Error('Erro ao carregar usuários');
+        }
+
+        const data = await response.json(); 
+        usuarios = data.users;  
+
+        const tbody = document.getElementById('usuarios-recentes');
+
+        if (!usuarios || usuarios.length === 0) {
+            tbody.innerHTML = `
+                <tr>
+                    <td colspan="4" class="text-center">Nenhum usuário cadastrado</td>
+                </tr>
+            `;
+            return;
+        }
+
+        const usuariosRecentes = usuarios.slice(0, 5);
+
+        tbody.innerHTML = usuariosRecentes.map(usuario => `
+            <tr>
+                <td>${usuario.id}</td>
+                <td>${usuario.name}</td>
+                <td>${usuario.email}</td>
+                <td class="actions">
+                    <a href="detalhes.html?id=${usuario.id}" class="btn btn-small">Ver</a>
+                    <a href="editar.html?id=${usuario.id}" class="btn btn-small btn-secondary">Editar</a>
+                    <a href="excluir.html?id=${usuario.id}" class="btn btn-small btn-danger">Excluir</a>
+                </td>
+            </tr>
+        `).join('');
+        
+    } catch (error) {
+        console.error('Erro:', error);
+        showMessage('Erro ao carregar usuários. Verifique se o servidor está rodando.', 'error');
+    }
+}
+
+async function cadastrarUsuario(event) {
+    event.preventDefault();
+    
+    const formData = new FormData(event.target);
+    const userData = {
+        name: formData.get('name'),
+        age: parseInt(formData.get('age')),
+        email: formData.get('email')
+    };
+    
+    try {
+        const response = await fetch(`${API_URL}/cadastro`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(userData)
+        });
+        
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.message || 'Erro ao cadastrar usuário');
+        }
+        
+        event.target.reset();
+        
+        showMessage('Usuário cadastrado com sucesso!', 'success');
+        
+        carregarUsuariosRecentes();
+        
+    } catch (error) {
+        console.error('Erro:', error);
+        showMessage(`Erro ao cadastrar usuário: ${error.message}`, 'error');
+    }
+}
+
+function buscarUsuario(event) {
+    event.preventDefault();
+    
+    const userId = document.getElementById('userId').value;
+    
+    const usuarioEncontrado = usuarios.find(user => user.id === userId);
+    
+    if (usuarioEncontrado) {
+        window.location.href = `detalhes.html?id=${userId}`;
+    } else {
+        alert('Usuário não encontrado!');
+    }
+}
+
+document.getElementById('cadastro-form').addEventListener('submit', cadastrarUsuario);
+document.getElementById('buscar-form').addEventListener('submit', buscarUsuario);
+
+document.addEventListener('DOMContentLoaded', carregarUsuariosRecentes);
+
+    </script>
+</body>
+</html>
