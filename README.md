@@ -78,6 +78,7 @@ Após completar as etapas acima, você pode acessar a aplicação abrindo o arqu
 
 ### Scripts
 
+```bash
 npm install: Instala as dependências do projeto.
 
 npm start: Inicia o servidor da aplicação.
@@ -85,4 +86,5 @@ npm start: Inicia o servidor da aplicação.
 docker-compose up -d database: Inicia o banco de dados PostgreSQL com Docker.
 
 sequelize db:migrate: Executa as migrations do Sequelize.
+```
 
