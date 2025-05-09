@@ -27,6 +27,7 @@ Execute o comando abaixo para instalar as dependências do projeto:
 
 ```bash
 npm install
+```
 2. Iniciar o Servidor
 Após instalar as dependências, execute o comando abaixo para iniciar o servidor:
 
