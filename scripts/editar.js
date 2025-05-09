@@ -1,7 +1,3 @@
-const token = localStorage.getItem('token');
-    if (!token) {
-    window.location.href = 'login.html';
-}
 const API_URL = 'http://localhost:3001/usuarios';
 const messageContainer = document.getElementById('message-container');
 const formContainer = document.getElementById('form-container');
@@ -39,11 +35,7 @@ let userId = null;
     }
     
     try {
-         const response = await fetch(`${API_URL}/todos`, {
-        headers: {
-            'Authorization': `Bearer ${token}`
-            }
-        });
+         const response = await fetch(`${API_URL}/todos`);
         
         if (!response.ok) {
             if (response.status === 404) {
@@ -130,10 +122,6 @@ async function atualizarUsuario(event) {
         
         const response = await fetch(`${API_URL}/editar/${userId}`, {
             method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
-            },
             body: JSON.stringify(userData)
         });
         
@@ -162,6 +150,5 @@ document.addEventListener('DOMContentLoaded', carregarDadosUsuario);
 
 document.getElementById('logout-link').addEventListener('click', function (event) {
     event.preventDefault(); 
-    localStorage.removeItem('token'); 
     window.location.href = 'login.html'; 
 });

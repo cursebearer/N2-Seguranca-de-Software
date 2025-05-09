@@ -1,7 +1,3 @@
-const token = localStorage.getItem('token');
-    if (!token) {
-     window.location.href = 'login.html';
-}
 const API_URL = 'http://localhost:3001/usuarios';
 const messageContainer = document.getElementById('message-container');
 const usuariosLista = document.getElementById('usuarios-lista');
@@ -31,11 +27,7 @@ const btnAtualizar = document.getElementById('btn-atualizar');
             </tr>
         `;
         
-          const response = await fetch(`${API_URL}/todos`, {
-        headers: {
-            'Authorization': `Bearer ${token}`
-            }
-        });
+          const response = await fetch(`${API_URL}/todos`);
         
         if (!response.ok) {
             throw new Error('Erro ao carregar usuários');
@@ -90,9 +82,6 @@ const btnAtualizar = document.getElementById('btn-atualizar');
             try {
                 const response = await fetch(`${API_URL}/deletar/${id}`, {
                     method: 'DELETE',
-                     headers: {
-                    'Authorization': `Bearer ${token}`
-                    }
                 });
                 
                 if (!response.ok) {
@@ -115,6 +104,5 @@ const btnAtualizar = document.getElementById('btn-atualizar');
 
         document.getElementById('logout-link').addEventListener('click', function (event) {
         event.preventDefault(); 
-        localStorage.removeItem('token'); 
         window.location.href = 'login.html'; 
         });

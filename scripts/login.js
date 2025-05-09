@@ -14,16 +14,6 @@ function showMessage(message, type = 'info') {
     }, 5000);
 }
 
-function decodeToken(token) {
-    try {
-        const payload = JSON.parse(atob(token.split('.')[1])); 
-        return payload;
-    } catch (error) {
-        console.error('Erro ao decodificar o token:', error);
-        return null;
-    }
-}
-
 async function fazerLogin(event) {
     event.preventDefault();
     
@@ -48,14 +38,7 @@ async function fazerLogin(event) {
         }
         
         const data = await response.json();
-        const decodedToken = decodeToken(data.token); 
-        
-        localStorage.setItem('token', data.token);
-        localStorage.setItem('userData', JSON.stringify({
-            id: decodedToken.id,
-            email: decodedToken.email
-        }));
-        
+
         showMessage('Login realizado com sucesso! Redirecionando...', 'success');
         
         setTimeout(() => {
@@ -70,6 +53,3 @@ async function fazerLogin(event) {
 
 loginForm.addEventListener('submit', fazerLogin);
 
-document.addEventListener('DOMContentLoaded', () => {
-    const userToken = localStorage.getItem('userToken');
-});
