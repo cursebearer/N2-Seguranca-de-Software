@@ -60,7 +60,13 @@ sequelize db:migrate
 Após completar as etapas acima, você pode acessar a aplicação abrindo o arquivo index.html ou usando a extensao live server.
 
 ```bash
+/css
 /node_modules       # Dependências do Node.js
+/pages
+  index.html <----- # Arquivo para acessar a aplicação
+  editar.html
+  listar.html
+  detalhes.html
 /src                # Código fonte da aplicação
   /models           # Modelos do Sequelize
   /controllers      # Controladores da aplicação
