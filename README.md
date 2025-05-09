@@ -21,6 +21,7 @@ Antes de rodar o projeto, é necessário ter o seguinte instalado:
 
 Siga os passos abaixo para rodar o projeto localmente.
 
+
 ### 1. Instalar Dependências
 
 Execute o comando abaixo para instalar as dependências do projeto:
@@ -29,14 +30,16 @@ Execute o comando abaixo para instalar as dependências do projeto:
 npm install
 ```
 
-2. Iniciar o Servidor
+
+### 2. Iniciar o Servidor
 Após instalar as dependências, execute o comando abaixo para iniciar o servidor:
 
 ```bash
 npm start
 ```
 
-3. Iniciar o Banco de Dados com Docker
+
+### 3. Iniciar o Banco de Dados com Docker
 Para rodar o banco de dados PostgreSQL com Docker, execute o comando abaixo:
 
 ```bash
@@ -44,17 +47,20 @@ docker-compose up -d database
 ```
 Isso irá iniciar o banco de dados em um container Docker.
 
-4. Executar as Migrations do Sequelize
+
+### 4. Executar as Migrations do Sequelize
 Para configurar o banco de dados, você precisa rodar as migrations do Sequelize. Execute o comando abaixo:
 
 ```bash
 sequelize db:migrate
 ```
 
-5. Acessando o Projeto
+
+### 5. Acessando o Projeto
 Após completar as etapas acima, você pode acessar a aplicação abrindo o arquivo index.html ou usando a extensao live server.
 
-Scripts
+
+### Scripts
 
 npm install: Instala as dependências do projeto.
 
