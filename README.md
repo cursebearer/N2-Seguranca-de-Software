@@ -59,26 +59,27 @@ sequelize db:migrate
 Após completar as etapas acima, você pode acessar a aplicação abrindo o arquivo index.html ou usando a extensao live server.
 
 ```bash
-/css
-/node_modules       # Dependências do Node.js
-/pages
-  login.html <----- # Arquivos para acessar a aplicação
-  cadastro.html
-  dashboard.html
-  editar.html
-  listar.html
-  detalhes.html
-/src                # Código fonte da aplicação
+/client
+  /css
+  /node_modules       # Dependências do Node.js
+  /pages
+      login.html <----- # Arquivos para acessar a aplicação
+      cadastro.html
+      dashboard.html
+      editar.html
+      listar.html
+      detalhes.html
+/server                # Código fonte da aplicação
   /models           # Modelos do Sequelize
   /controllers      # Controladores da aplicação
   /routes           # Rotas da aplicação
-/config             # Configurações do projeto
-  /database.json    # Configuração do banco de dados
-/sequelize-config   # Arquivos de configuração do Sequelize
+  /config             # Configurações do projeto
+    /database.json    # Configuração do banco de dados
+  /sequelize-config   # Arquivos de configuração do Sequelize
 ```
 
 ### Scripts
-
+Dentro da pastar server
 ```bash
 npm install: Instala as dependências do projeto.
 
