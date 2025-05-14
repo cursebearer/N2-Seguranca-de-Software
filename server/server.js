@@ -1,9 +1,9 @@
 import express from "express";
 import cors from "cors";
-import User from "./models/User.js";
 import Sequelize  from "sequelize";
-import config from "./config/database.js";
+import config from "./src/config/database.js";
 import userRoutes from "./routes.js";
+import User from "./src/models/User.js";
 
 const app = express();
 app.use(cors());
